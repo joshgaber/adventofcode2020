@@ -4,20 +4,19 @@ class Day1
   end
 
   def part1
-    smaller = @entries.filter { |entry| entry < 1010 }
-    num1 = smaller.filter { |entry| @entries.include?(2020 - entry)}.first
-    num2 = 2020 - num1
-
-    "Product of both entries: #{num1 * num2}"
+    "Product of both entries: #{combo 2}"
   end
 
   def part2
-    smaller = @entries.filter { |entry| entry < 1010 }
-    grid = smaller.map { |entry| smaller.map { |sm| sm + entry } }.flatten
-    num1 = @entries.filter { |entry| grid.include?(2020 - entry)}.first
-    num2 = smaller.filter{ |entry| smaller.include?(2020 - num1 - entry)}.first
-    num3 = 2020 - num1 - num2
+    "Product of all three entries: #{combo 3}"
+  end
 
-    "Product of all three entries: #{num1 * num2 * num3}"
+  def combo(count, total = 2020)
+    smaller = @entries.filter { |entry| entry < (total / 2) }
+    grid = smaller.combination(count - 1).to_a
+    nums = grid.filter { |g| @entries.include?(total - g.sum)}.first
+    nums.push(total - nums.sum)
+
+    nums.reduce(:*)
   end
 end
