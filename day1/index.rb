@@ -1,6 +1,6 @@
 class Day1
   def initialize
-    @entries = File.read('./day1/input.txt').strip.split("\n").map(&:to_i)
+    @entries = File.read('./day1/input.txt').strip.split("\n").map &:to_i
   end
 
   def part1
@@ -15,8 +15,8 @@ class Day1
     smaller = @entries.filter { |entry| entry < (total / 2) }
     grid = smaller.combination(count - 1).to_a
     nums = grid.filter { |g| @entries.include?(total - g.sum)}.first
-    nums.push(total - nums.sum)
+    nums << total - nums.sum
 
-    nums.reduce(:*)
+    nums.reduce :*
   end
 end

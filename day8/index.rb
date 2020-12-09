@@ -11,7 +11,7 @@ class Day8
     noAccs = (0...@steps.count).to_a.reject { |s| @steps[s][0] == 'acc' }
 
     for pos in noAccs do
-      list = @steps.map { |s| s.dup }
+      list = @steps.map &:clone
       list[pos][0] = @steps[pos][0] == 'nop' ? 'jmp' : 'nop'
       res = process list
       return "Acc after fix: #{res[:acc]}" if res[:jmp] >= list.length
@@ -23,7 +23,7 @@ class Day8
     jmp = 0
     taken = []
     until taken.include?(jmp) or jmp >= list.length
-      taken.push(jmp)
+      taken << jmp
       acc += list[jmp][1] if list[jmp][0] == 'acc'
       jmp += list[jmp][0] == 'jmp' ? list[jmp][1] : 1
     end

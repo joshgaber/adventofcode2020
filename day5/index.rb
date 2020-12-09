@@ -8,6 +8,6 @@ class Day5
   end
 
   def part2
-    "Your seat: #{(@seats.min..@seats.max).to_a.difference(@seats).first}"
+    "Your seat: #{((@seats.min..@seats.max).to_a - @seats).first}"
   end
 end

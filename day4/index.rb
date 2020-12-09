@@ -8,7 +8,7 @@ class Day4
   end
 
   def part2
-    hashmap = @passports.map { |p| p.to_h { |f| f.split(':') } }
+    hashmap = @passports.map { |p| p.to_h { |f| f.split ':' } }
       .filter { |p| (1920..2002).include? p['byr'].to_i }
       .filter { |p| (2010..2020).include? p['iyr'].to_i }
       .filter { |p| (2020..2030).include? p['eyr'].to_i }

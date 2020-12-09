@@ -1,6 +1,6 @@
 class Day6
   def initialize
-    @questions = File.read('day6/input.txt').strip.split("\n\n").map { |q| q.split("\n").map { |a| a.chars } }
+    @questions = File.read('day6/input.txt').strip.split("\n\n").map { |q| q.split("\n").map &:chars }
   end
 
   def part1
