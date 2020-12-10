@@ -13,7 +13,7 @@ class Day3
   end
 
   def treeFind(slopeX, slopeY)
-    ((0...@map.count) % slopeY).to_a.filter { |y| @map[y][(y * slopeX / slopeY) % @map[0].length] == "#" }.count
+    ((0...@map.count) % slopeY).to_a.count { |y| @map[y][(y * slopeX / slopeY) % @map[0].length] == "#" }
   end
 
 end

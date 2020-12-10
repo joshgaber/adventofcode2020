@@ -4,12 +4,12 @@ class Day2
   end
 
   def part1
-    good = @passwords.filter { |p| (p[0]..p[1]).include?(p[3].count p[2]) }
-    "Good passwords: #{good.count}"
+    good = @passwords.count { |p| (p[0]..p[1]).include?(p[3].count p[2]) }
+    "Good passwords: #{good}"
   end
 
   def part2
-    good = @passwords.filter { |p| (p[3][p[0]-1] == p[2]) ^ (p[3][p[1]-1] == p[2]) }
-    "Actually good passwords: #{good.count}"
+    good = @passwords.count { |p| (p[3][p[0]-1] == p[2]) ^ (p[3][p[1]-1] == p[2]) }
+    "Actually good passwords: #{good}"
   end
 end
