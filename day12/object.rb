@@ -1,7 +1,6 @@
 module Day12
   class Object
-    attr_reader :x, :y, :direction
-    attr_writer :x, :y, :direction
+    attr_accessor :x, :y, :direction
 
     def move(steps, direction = @direction)
       case direction
