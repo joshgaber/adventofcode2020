@@ -5,43 +5,43 @@ module Day14
     end
 
     def part1
+      "Sum of memory (wrong): #{process :v1}"
+    end
+
+    def part2
+      "Sum of memory (right): #{process :v2}"
+    end
+
+    def process(version)
       memory = {}
-      mask = ""
+      mask = ''
       @instructions.each do |i|
         if i[0] == "mask"
           mask = i[1]
         else
-          memory[i[0][/\d+/]] = maskValue i[1], mask
+          send(version, i[0][/\d+/].to_i, i[1].to_i, mask, memory)
         end
       end
       memory.values.reduce :+
     end
 
-    def part2
-      memory = {}
-      masks = []
-      @instructions.each do |i|
-        if i[0] == "mask"
-          masks = expandMask i[1]
-        else
-          masks.each do |mask|
-            address = (i[0][/\d+/].to_i | mask.to_i(2)).to_s
-            memory[address] = i[1].to_i
-          end
-        end
-      end
-      memory.values.reduce :+
+    def v1(address, value, mask, memory)
+      memory[address] = maskValue value, mask
+    end
+
+    def v2(address, value, mask, memory)
+      maskAddress(address | mask.gsub("X", "0").to_i(2), mask).each { |a| memory[a] = value }
     end
 
     def maskValue(value, mask)
       value.to_i & mask.gsub("X", "1").to_i(2) | mask.gsub("X", "0").to_i(2)
     end
 
-    def expandMask(mask)
-      index = mask.index 'X'
-      return [] if index == nil
-      masks = [mask.clone, mask.clone].map.with_index { |mask, i| mask[index] = i.to_s }
-      masks + masks.map { |mask| expandMask(mask) }.flatten
+    def maskAddress(address, mask)
+      index = mask.reverse.index 'X'
+      return [address] if index == nil
+      newMask = mask.dup.tap { |m| m[-index - 1] = '0' }
+      [address | 2**index, address | 2**index ^ 2**index].map { |a| maskAddress a, newMask }.flatten
     end
   end
 end
