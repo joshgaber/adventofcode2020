@@ -14,8 +14,7 @@ module Day10
     end
 
     def fib3(n, seed = [0, 1, 1])
-      return seed.last if n <= 1
-      fib3 n-1, seed.last(2) << seed.sum
+      n <= 1 ? seed.last : fib3(n-1, seed.last(2) << seed.sum)
     end
   end
 end

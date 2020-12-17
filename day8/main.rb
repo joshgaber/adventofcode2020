@@ -11,7 +11,7 @@ module Day8
     def part2
       noAccs = (0...@steps.count).to_a.reject { |s| @steps[s][0] == 'acc' }
 
-      for pos in noAccs do
+      noAccs.each do |pos|
         list = @steps.map &:clone
         list[pos][0] = @steps[pos][0] == 'nop' ? 'jmp' : 'nop'
         res = process list
