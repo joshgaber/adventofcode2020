@@ -1,0 +1,29 @@
+000 - _
+001 - TY ^ XT
+002 - XY ^ YX
+003 TX ^ YT
+004 Y
+005 T ^ XTY ^ YTX
+006 X
+007 XTX ^ YTY
+
+214 - 2 = YX, 1 = XT, 4 = Y
+
+=== OR ===
+
+000 - _
+001 - TY ^ XT
+002 - XY ^ YX
+003 TX ^ YT
+004 Y
+005 XTX ^ YTY
+006 X
+007 T ^ XTY ^ YTX
+
+
+=== Initial rotation ===
+
+TR: 0,1; -> 3|4 ==> even? rotate to a^4; odd? rotate by (b & 2) ? 6, 0
+BR: 2,1; -> 0|7 => 4 if
+TL: 0,3; -> 2|5 => (a | 4)
+BL: 2,3; -> 1|6 =>
