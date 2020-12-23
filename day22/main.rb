@@ -5,18 +5,39 @@ module Day22
     end
 
     def part1
-      until @players[0].empty? || @players[1].empty?
-        cards = [@players[0].shift, @players[1].shift]
-        winner = cards.index(cards.max)
-        puts "#{cards.inspect} -- Player #{winner} wins"
-        @players[winner] += cards.sort.reverse
+      players = @players.map &:clone
+      until players[0].empty? || players[1].empty?
+        cards = players.map &:shift
+        winner = cards.index cards.max
+        players[winner] << cards[winner] << cards[1 - winner]
       end
-      bigWinner = @players.reject { |p| p.empty? }.first
-      puts bigWinner.inspect
+      bigWinner = players.reject(&:empty?).first
       bigWinner.map.with_index { |w, i| w * (bigWinner.count - i) }.sum
     end
 
     def part2
+      @hands = []
+      bigWinner = recursiveCombat(@players.map &:clone).reject(&:empty?).first
+      bigWinner.map.with_index { |w, i| w * (bigWinner.count - i) }.sum
+    end
+
+    def recursiveCombat(players)
+      hands = []
+      until players[0].empty? || players[1].empty?
+        if hands.include? players.to_s
+          players[1] = []
+        else
+          hands << players.to_s
+          cards = players.map &:shift
+          if cards[0] <= players[0].length && cards[1] <= players[1].length
+            winner = recursiveCombat(players.map.with_index { |p, i| p.first(cards[i])}).index(&:any?)
+          else
+            winner = cards.index(cards.max)
+          end
+          players[winner] << cards[winner] << cards[1 - winner]
+        end
+      end
+      players
     end
   end
 end
