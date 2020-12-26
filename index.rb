@@ -1,4 +1,4 @@
-(1...24).each do |d|
+(1..24).each do |d|
   require_relative "day#{d}/main"
 end
 
