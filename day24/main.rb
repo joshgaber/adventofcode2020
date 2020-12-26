@@ -3,21 +3,16 @@ require_relative "floor_plan"
 module Day24
   class Main
     def initialize
-      @floorPlan = FloorPlan.new(File.read('day24/input2.txt').strip.split("\n"))
-      @neighbors = [[-2, 0], [-1, -1], [-1, 1], [1, -1], [1, 1], [0, 2]]
+      @floorPlan = FloorPlan.new(File.read('day24/input.txt').strip.split("\n"))
     end
 
     def part1
-      @floorPlan.flipped.length
+      "Black tiles: #{@floorPlan.flipped.length}"
     end
 
     def part2
-      puts @floorPlan.flipped.inspect
-      2.times { @floorPlan.nextDay }
-      puts @floorPlan.flipped.inspect
-      1.times { @floorPlan.nextDay }
-      puts @floorPlan.flipped.inspect
-      @floorPlan.flipped.count
+      100.times { @floorPlan.nextDay }
+      "Black tiles after 100 days: #{@floorPlan.flipped.length}"
     end
   end
 end

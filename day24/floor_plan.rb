@@ -29,7 +29,7 @@ module Day24
         @flipped ^= [position]
       end
 
-      @neighbors = [[-2, 0], [-1, -1], [-1, 1], [1, -1], [1, 1], [0, 2]]
+      @neighbors = [[-2, 0], [-1, -1], [-1, 1], [1, -1], [1, 1], [2, 0]]
     end
 
     def nextDay
@@ -48,9 +48,11 @@ module Day24
     def shouldFlip?(x, y)
       neighbors = @neighbors.count { |n| @flipped.include? [n[0] + x, n[1] + y] }
       # puts @neighbors.filter { |n| @flipped.include? [n[0] + x, n[1] + y] }.inspect if x == -4 && y == -2
-      return true if @flipped.include?([x, y]) && [0, 3, 4, 5, 6].include?(neighbors)
-      return true if (!@flipped.include?([x, y])) && neighbors == 2
-      false
+      if @flipped.include?([x, y])
+        [0, 3, 4, 5, 6].include?(neighbors)
+      else
+        neighbors == 2
+      end
     end
   end
 end
