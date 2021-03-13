@@ -32,19 +32,21 @@ module Day24
       @neighbors = [[-2, 0], [-1, -1], [-1, 1], [1, -1], [1, 1], [2, 0]]
     end
 
-    def nextDay
-      toFlip = []
+    def next_day
+      to_flip = []
       d = @flipped.to_a.transpose.map { |f| [f.min, f.max] }
       (d[0][0]-1..d[0][1]+1).to_a.each do |x|
         (d[1][0]-1..d[1][1]+1).to_a.each do |y|
           next if x.odd? != y.odd?
-          toFlip << [x, y] if shouldFlip?(x, y)
+          to_flip << [x, y] if should_flip?(x, y)
         end
       end
-      @flipped ^= toFlip
+      @flipped ^= to_flip
     end
 
-    def shouldFlip?(x, y)
+    private
+
+    def should_flip?(x, y)
       neighbors = @neighbors.count { |n| @flipped.include? [n[0] + x, n[1] + y] }
       if @flipped.include?([x, y])
         [0, 3, 4, 5, 6].include?(neighbors)

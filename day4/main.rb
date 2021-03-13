@@ -14,9 +14,9 @@ module Day4
         .filter { |p| (2010..2020).include? p['iyr'].to_i }
         .filter { |p| (2020..2030).include? p['eyr'].to_i }
         .filter { |p| p['hcl'].match? /^#[0-9a-f]{6}$/ }
-        .filter { |p| ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].include? p['ecl'] }
+        .filter { |p| %w[amb blu brn gry grn hzl oth].include? p['ecl'] }
         .filter { |p| p['pid'].match? /^\d{9}$/ }
-        .filter { |p| ((150..193).to_a.map { |r| r.to_s + "cm" } + (59..76).to_a.map { |r| r.to_s + "in"}).include? p['hgt'] }
+        .filter { |p| ((150..193).to_a.map { |r| "#{r}cm" } + (59..76).to_a.map { |r| "#{r}in"}).include? p['hgt'] }
 
       "Actually valid passports: #{hashmap.count}"
     end

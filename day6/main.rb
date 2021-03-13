@@ -5,11 +5,11 @@ module Day6
     end
 
     def part1
-      "Answered yes to some: #{@questions.map { |q| q.reduce(:|).count }.sum}"
+      "Answered yes to some: #{@questions.sum { |q| q.reduce(:|).count }}"
     end
 
     def part2
-      "Answered yes to all: #{@questions.map { |q| q.reduce(:&).count }.sum}"
+      "Answered yes to all: #{@questions.sum { |q| q.reduce(:&).count }}"
     end
   end
 end

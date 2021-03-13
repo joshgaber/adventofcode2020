@@ -10,11 +10,13 @@ module Day10
     end
 
     def part2
-      "Different combinations: #{@diffs.join.scan(/1+/).map { |d| fib3 d.length }.reduce :*}"
+      "Different combinations: #{@diffs.join.scan(/1+/).map { |d| tribonacci d.length }.reduce :*}"
     end
 
-    def fib3(n, seed = [0, 1, 1])
-      n <= 1 ? seed.last : fib3(n-1, seed.last(2) << seed.sum)
+    private
+
+    def tribonacci(n, seed = [0, 1, 1])
+      n <= 1 ? seed.last : tribonacci(n-1, seed.last(2) << seed.sum)
     end
   end
 end

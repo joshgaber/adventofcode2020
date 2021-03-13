@@ -8,15 +8,17 @@ module Day11
 
     def part1
       seats = @seats.map { |row| row.map { |seat| Seat.new seat, 4 } }
-      seats.each.with_index { |row, v| row.each.with_index { |seat, h| seat.findSeats :adjacent, seats, v, h } }
+      seats.each.with_index { |row, v| row.each.with_index { |seat, h| seat.find_seats :adjacent, seats, v, h } }
       "Adjacent seats: #{process seats.flatten}"
     end
 
     def part2
       seats = @seats.map { |row| row.map { |seat| Seat.new seat, 5 } }
-      seats.each.with_index { |row, v| row.each.with_index { |seat, h| seat.findSeats :visible, seats, v, h } }
+      seats.each.with_index { |row, v| row.each.with_index { |seat, h| seat.find_seats :visible, seats, v, h } }
       "Adjacent seats: #{process seats.flatten}"
     end
+
+    private
 
     def process(seats)
       loop do

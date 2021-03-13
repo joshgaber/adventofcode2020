@@ -11,7 +11,7 @@ module Day24
     end
 
     def part2
-      100.times { @floorPlan.nextDay }
+      100.times { @floorPlan.next_day }
       "Black tiles after 100 days: #{@floorPlan.flipped.length}"
     end
   end

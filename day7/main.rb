@@ -6,21 +6,23 @@ module Day7
 
     def part1
       bags = @bags.transform_values { |b| b.gsub(/\d+\s*/, "").split /,\s*/ }
-      "Bags that contain shiny gold: #{bags.select { |b| hasShinyGoldBag? b, bags }.length}"
+      "Bags that contain shiny gold: #{bags.keys.count { |b| has_shiny_gold_bag? b, bags }}"
     end
 
     def part2
       bags = @bags.transform_values { |b| b.split(/,\s*/).map { |bb| bb.split /\s+/, 2 } }
-      "Bags in a shiny gold: #{containsBag "shiny gold", bags}"
+      "Bags in a shiny gold: #{bags_contained_in "shiny gold", bags}"
     end
 
-    def hasShinyGoldBag?(bag, bags)
+    private
+
+    def has_shiny_gold_bag?(bag, bags)
       return true if bags[bag].to_a.include? "shiny gold"
-      bags[bag].to_a.reduce(false) { |acc, b| acc || hasShinyGoldBag?(b, bags) }
+      bags[bag].to_a.reduce(false) { |acc, b| acc || has_shiny_gold_bag?(b, bags) }
     end
 
-    def containsBag(bag, bags)
-      bags[bag].to_a.reduce(0) { |acc, b| acc + (1 + containsBag(b[1], bags)) * b[0].to_i }
+    def bags_contained_in(bag, bags)
+      bags[bag].to_a.reduce(0) { |acc, b| acc + (1 + bags_contained_in(b[1], bags)) * b[0].to_i }
     end
   end
 end

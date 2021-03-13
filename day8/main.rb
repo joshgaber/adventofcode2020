@@ -9,15 +9,17 @@ module Day8
     end
 
     def part2
-      noAccs = (0...@steps.count).to_a.reject { |s| @steps[s][0] == 'acc' }
+      no_acc = (0...@steps.count).to_a.reject { |s| @steps[s][0] == 'acc' }
 
-      noAccs.each do |pos|
+      no_acc.each do |pos|
         list = @steps.map &:clone
         list[pos][0] = @steps[pos][0] == 'nop' ? 'jmp' : 'nop'
         res = process list
         return "Acc after fix: #{res[:acc]}" if res[:jmp] >= list.length
       end
     end
+
+    private
 
     def process(list = @steps)
       acc = 0

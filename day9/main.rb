@@ -11,15 +11,17 @@ module Day9
 
     def part2
       actual = []
-      for i in @input
+      @input.each do i
         actual << i
         actual.shift while actual.sum > @invalid
         return "Encryption weakness: #{actual.min + actual.max}" if actual.sum == @invalid
       end
     end
 
+    private
+
     def invalid
-      for i in (25...@input.length)
+      (25...@input.length).each do |i|
         subset = @input[i-25, 25].combination(2).map &:sum
         return @input[i] unless subset.include? @input[i]
       end

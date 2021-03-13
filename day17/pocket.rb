@@ -6,7 +6,7 @@ module Day17
       @height = initial.length
       @width = initial[0].length
 
-      @state = blankState
+      @state = initial_state
       initial.each.with_index { |row, i| @state.dig(*Array.new(dimensions - 2) { 7 })[7 + i][7, @width] = row }
 
       @neighbors = [-1, 0, 1].repeated_permutation(dimensions).to_a - [Array.new(dimensions) { 0 }]
@@ -24,12 +24,14 @@ module Day17
       @state.flatten.count '#'
     end
 
-    def blankState(dimension = 2)
-      return Array.new(15) { blankState(dimension + 1) } if dimension < @dimensions
+    private
+
+    def initial_state(dimension = 2)
+      return Array.new(15) { initial_state(dimension + 1) } if dimension < @dimensions
       Array.new(@height + 14) { Array.new(@width + 14) { '.' } }
     end
 
-    def updateState(state = blankState, coords = [])
+    def updateState(state = initial_state, coords = [])
       if coords.length < @dimensions - 2
         (6 - @step..8 + @step).each { |d| updateState state[d], coords + [d] }
       else

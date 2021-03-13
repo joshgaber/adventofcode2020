@@ -41,6 +41,8 @@ module Day12
       "Ship distance (relative): #{ship.distance}"
     end
 
+    private
+
     def rotations(degrees, direction)
       (direction == 'L' ? degrees : 360 - degrees) / 90
     end

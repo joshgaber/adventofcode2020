@@ -11,6 +11,8 @@ module Day18
       values.first
     end
 
+    private
+
     def calculate(values, operands)
       loop do
         i = values.index { |v| operands.include? v.to_s }

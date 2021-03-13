@@ -7,11 +7,11 @@ module Day18
     end
 
     def part1
-      "With equal precedent: #{@problems.map { |p| p.solve ['+*'] }.sum}"
+      "With equal precedent: #{@problems.sum { |p| p.solve ['+*'] }}"
     end
 
     def part2
-      "With addition precedent: #{@problems.map { |p| p.solve ['+', '*'] }.sum}"
+      "With addition precedent: #{@problems.sum { |p| p.solve %w[+ *] }}"
     end
   end
 end

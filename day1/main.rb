@@ -12,6 +12,8 @@ module Day1
       "Product of all three entries: #{combo 3}"
     end
 
+    private
+
     def combo(count, total = 2020)
       smaller = @entries.filter { |entry| entry < (total / 2) }
       grid = smaller.combination(count - 1).to_a
