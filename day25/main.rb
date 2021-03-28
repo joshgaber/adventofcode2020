@@ -1,7 +1,7 @@
 module Day25
   class Main
-    def initialize
-      @keys = File.read('day25/input.txt').strip.split("\n").map(&:to_i)
+    def initialize(input)
+      @keys = input.split("\n").map(&:to_i)
       @subject = 7
       @salt = 20_201_227
     end
@@ -15,7 +15,7 @@ module Day25
       end
       value = 1
       loops.times { value = (value * @keys[1]) % @salt }
-      "Encryption key: #{value}"
+      value
     end
 
     def part2

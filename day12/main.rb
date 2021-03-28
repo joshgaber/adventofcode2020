@@ -5,8 +5,8 @@ module Day12
   DIRECTIONS = %w[N E S W].freeze
 
   class Main
-    def initialize
-      @steps = File.read('day12/input.txt').strip.split("\n").map { |s| [s[/\d+/].to_i, s[0]] }
+    def initialize(input)
+      @steps = input.split("\n").map { |s| [s[/\d+/].to_i, s[0]] }
     end
 
     def part1
@@ -18,7 +18,7 @@ module Day12
         when 'L', 'R' then rotations(*s).times { ship.rotate }
         end
       end
-      "Ship distance (absolute): #{ship.distance}"
+      ship.distance
     end
 
     def part2
@@ -33,7 +33,7 @@ module Day12
         when 'R', 'L' then rotations(*s).times { waypoint.rotate }
         end
       end
-      "Ship distance (relative): #{ship.distance}"
+      ship.distance
     end
 
     private

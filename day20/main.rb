@@ -2,9 +2,8 @@ require_relative 'tile'
 
 module Day20
   class Main
-    def initialize
-      input = File.read('day20/input.txt').strip.split "\n\n"
-      @tiles = input.map { |t| Tile.new(*t.split("\n", 2)) }
+    def initialize(input)
+      @tiles = input.split("\n\n").map { |t| Tile.new(*t.split("\n", 2)) }
       @tiles.each { |t| t.find_neighbors @tiles }
     end
 

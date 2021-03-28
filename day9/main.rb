@@ -1,12 +1,12 @@
 module Day9
   class Main
-    def initialize
-      @input = File.read('day9/input.txt').strip.split("\n").map(&:to_i)
+    def initialize(input)
+      @input = input.split("\n").map(&:to_i)
       @invalid = invalid
     end
 
     def part1
-      "First invalid number: #{@invalid}"
+      @invalid
     end
 
     def part2
@@ -14,7 +14,7 @@ module Day9
       @input.each do |i|
         actual << i
         actual.shift while actual.sum > @invalid
-        return "Encryption weakness: #{actual.min + actual.max}" if actual.sum == @invalid
+        return actual.minmax.sum if actual.sum == @invalid
       end
     end
 

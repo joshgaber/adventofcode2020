@@ -1,15 +1,15 @@
 module Day1
   class Main
-    def initialize
-      @entries = File.read('./day1/input.txt').strip.split("\n").map(&:to_i)
+    def initialize(input)
+      @entries = input.split("\n").map(&:to_i)
     end
 
     def part1
-      "Product of both entries: #{combo 2}"
+      combo 2
     end
 
     def part2
-      "Product of all three entries: #{combo 3}"
+      combo 3
     end
 
     private

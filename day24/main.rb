@@ -2,17 +2,18 @@ require_relative 'floor_plan'
 
 module Day24
   class Main
-    def initialize
-      @floor_plan = FloorPlan.new(File.read('day24/input.txt').strip.split("\n"))
+    def initialize(input)
+      @floor_plan = FloorPlan.new(input.split("\n"))
     end
 
     def part1
-      "Black tiles: #{@floor_plan.flipped.length}"
+      @floor_plan.flipped.length
     end
 
     def part2
-      100.times { @floor_plan.next_day }
-      "Black tiles after 100 days: #{@floor_plan.flipped.length}"
+      floor_plan = @floor_plan.clone
+      100.times { floor_plan.next_day }
+      floor_plan.flipped.length
     end
   end
 end

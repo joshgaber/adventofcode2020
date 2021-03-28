@@ -1,7 +1,7 @@
 module Day22
   class Main
-    def initialize
-      @players = File.read('day22/input.txt').strip.split("\n\n").map { |p| p.split("\n")[1..-1].map(&:to_i) }
+    def initialize(input)
+      @players = input.split("\n\n").map { |p| p.split("\n")[1..-1].map(&:to_i) }
     end
 
     def part1

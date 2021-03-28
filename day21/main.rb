@@ -1,8 +1,7 @@
 module Day21
   class Main
-    def initialize
-      input = File.read('day21/input.txt').strip.split("\n")
-      @contents = input.map do |c|
+    def initialize(input)
+      @contents = input.split("\n").map do |c|
         {
           ingredients: c.match(/(.*) \(/)[1].split(/\s/),
           allergens: c.match(/\(contains (.*)\)/)[1].split(/,\s/)
@@ -15,7 +14,7 @@ module Day21
     end
 
     def part1
-      "Non-allergenic ingredients: #{(@ingredients - @maybes.values.flatten.uniq).count}"
+      (@ingredients - @maybes.values.flatten.uniq).count
     end
 
     def part2
@@ -29,7 +28,7 @@ module Day21
           end
         end
       end
-      "List of allergens: #{definitelies.values.sort { |a, b| definitelies.key(a) <=> definitelies.key(b) }.join ','}"
+      definitelies.values.sort { |a, b| definitelies.key(a) <=> definitelies.key(b) }.join ','
     end
   end
 end

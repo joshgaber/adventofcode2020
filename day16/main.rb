@@ -1,16 +1,16 @@
 module Day16
   class Main
-    def initialize
-      input = File.read('day16/input.txt').strip.split("\n\n")
-      @fields = input[0].split("\n").to_h { |field| field.split(/:\s*/, 2) }.transform_values do |field|
+    def initialize(input)
+      tickets = input.split("\n\n")
+      @fields = tickets[0].split("\n").to_h { |field| field.split(/:\s*/, 2) }.transform_values do |field|
         field.split(/\s*or\s*/).map { |i| Range.new(*i.split('-')).to_a }.flatten
       end
-      @my_ticket = input[1].split("\n")[1].split ','
-      @tickets = input[2].split("\n")[1..-1].map { |i| i.split ',' }
+      @my_ticket = tickets[1].split("\n")[1].split ','
+      @tickets = tickets[2].split("\n")[1..-1].map { |i| i.split ',' }
     end
 
     def part1
-      "Error rate: #{invalid_numbers.sum(&:to_i)}"
+      invalid_numbers.sum(&:to_i)
     end
 
     def part2
@@ -21,11 +21,9 @@ module Day16
         @fields.select { |_k, v| (column & v).count == column.uniq.count }.keys
       end
 
-      departure_product = map_field_to_index(possible_fields)
-                          .select { |k, _v| k.include? 'departure' }
-                          .values.map { |i| @my_ticket[i].to_i }.reduce :*
-
-      "Product of departure fields: #{departure_product}"
+      map_field_to_index(possible_fields)
+        .select { |k, _v| k.include? 'departure' }
+        .values.map { |i| @my_ticket[i].to_i }.reduce :*
     end
 
     private

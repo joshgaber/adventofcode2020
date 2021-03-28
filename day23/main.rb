@@ -2,19 +2,19 @@ require_relative 'cup'
 
 module Day23
   class Main
-    def initialize
-      @cups = File.read('day23/input.txt').strip.chars.map { |c| Cup.new(c.to_i) }
+    def initialize(input)
+      @cups = input.chars.map { |c| Cup.new(c.to_i) }
     end
 
     def part1
-      "Cup order: #{flatten_list(move_cups_and_get_first(@cups.clone, 100))[1..-1]}"
+      flatten_list(move_cups_and_get_first(@cups.clone, 100))[1..-1].to_i
     end
 
     def part2
       cups = Array.new(1_000_000) { |i| Cup.new(i + 1) }
       cups[0...@cups.length] = @cups.clone
       cup1 = move_cups_and_get_first cups, 10_000_000
-      "Product of next 2 cups: #{cup1.next.id * cup1.next.next.id}"
+      cup1.next.id * cup1.next.next.id
     end
 
     def move_cups_and_get_first(cups, moves)

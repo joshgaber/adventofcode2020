@@ -1,15 +1,15 @@
 module Day14
   class Main
-    def initialize
-      @instructions = File.read('day14/input.txt').strip.split("\n").map { |i| i.split(/\s*=\s*/) }
+    def initialize(input)
+      @instructions = input.split("\n").map { |i| i.split(/\s*=\s*/) }
     end
 
     def part1
-      "Sum of memory (wrong): #{process :v1}"
+      process :v1
     end
 
     def part2
-      "Sum of memory (right): #{process :v2}"
+      process :v2
     end
 
     private
