@@ -1,9 +1,9 @@
 module Day25
   class Main
     def initialize
-      @keys = File.read('day25/input.txt').strip.split("\n").map &:to_i
+      @keys = File.read('day25/input.txt').strip.split("\n").map(&:to_i)
       @subject = 7
-      @salt = 20201227
+      @salt = 20_201_227
     end
 
     def part1
@@ -19,7 +19,7 @@ module Day25
     end
 
     def part2
-      "There is no part 2"
+      'There is no part 2'
     end
   end
 end

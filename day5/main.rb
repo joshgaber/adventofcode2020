@@ -1,7 +1,7 @@
 module Day5
   class Main
     def initialize
-      @seats = File.read('day5/input.txt').strip.split("\n").map { |s| s.gsub(/R|B/, "1").gsub(/L|F/, "0").to_i 2 }
+      @seats = File.read('day5/input.txt').strip.split("\n").map { |s| s.gsub(/R|B/, '1').gsub(/L|F/, '0').to_i 2 }
     end
 
     def part1

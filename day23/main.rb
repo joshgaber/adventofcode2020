@@ -7,24 +7,25 @@ module Day23
     end
 
     def part1
-      "Cup order: #{flatten_list(move_cups_and_get_first @cups.clone, 100)[1..-1]}"
+      "Cup order: #{flatten_list(move_cups_and_get_first(@cups.clone, 100))[1..-1]}"
     end
 
     def part2
-      cups = Array.new(1000000) { |i| Cup.new(i+1) }
+      cups = Array.new(1_000_000) { |i| Cup.new(i + 1) }
       cups[0...@cups.length] = @cups.clone
-      cup1 = move_cups_and_get_first cups, 10000000
+      cup1 = move_cups_and_get_first cups, 10_000_000
       "Product of next 2 cups: #{cup1.next.id * cup1.next.next.id}"
     end
 
     def move_cups_and_get_first(cups, moves)
       cup = cups[0]
       cups = link_and_hash_list cups
-      moves.times do |i|
+      moves.times do |_i|
         next3 = cup.next
         cup.next = next3.next.next.next
         cup_id = cup.id - 1
-        cup_id = (cup_id - 1) % (cups.length + 1) while cup_id === 0 || [next3.id, next3.next.id, next3.next.next.id].include?(cup_id)
+        cup_id = (cup_id - 1) % (cups.length + 1) while cup_id.zero? || [next3.id, next3.next.id,
+                                                                         next3.next.next.id].include?(cup_id)
         destination = cups[cup_id]
         next3.next.next.next = destination.next
         destination.next = next3
@@ -34,7 +35,7 @@ module Day23
     end
 
     def link_and_hash_list(cups)
-      cups.each.with_index { |cup, i| cup.next = cups[(i+1) % cups.length] }
+      cups.each.with_index { |cup, i| cup.next = cups[(i + 1) % cups.length] }
       cups.to_h { |cup| [cup.id, cup] }
     end
 

@@ -1,24 +1,25 @@
 module Day7
   class Main
     def initialize
-      @bags = File.read('day7/input.txt').gsub(/\s*bags?|\./, "").split("\n").to_h { |b| b.split /\s*contain\s*/}
+      @bags = File.read('day7/input.txt').gsub(/\s*bags?|\./, '').split("\n").to_h { |b| b.split(/\s*contain\s*/) }
     end
 
     def part1
-      bags = @bags.transform_values { |b| b.gsub(/\d+\s*/, "").split /,\s*/ }
-      "Bags that contain shiny gold: #{bags.keys.count { |b| has_shiny_gold_bag? b, bags }}"
+      bags = @bags.transform_values { |b| b.gsub(/\d+\s*/, '').split(/,\s*/) }
+      "Bags that contain shiny gold: #{bags.keys.count { |b| contains_shiny_gold_bag? b, bags }}"
     end
 
     def part2
-      bags = @bags.transform_values { |b| b.split(/,\s*/).map { |bb| bb.split /\s+/, 2 } }
-      "Bags in a shiny gold: #{bags_contained_in "shiny gold", bags}"
+      bags = @bags.transform_values { |b| b.split(/,\s*/).map { |bb| bb.split(/\s+/, 2) } }
+      "Bags in a shiny gold: #{bags_contained_in 'shiny gold', bags}"
     end
 
     private
 
-    def has_shiny_gold_bag?(bag, bags)
-      return true if bags[bag].to_a.include? "shiny gold"
-      bags[bag].to_a.reduce(false) { |acc, b| acc || has_shiny_gold_bag?(b, bags) }
+    def contains_shiny_gold_bag?(bag, bags)
+      return true if bags[bag].to_a.include? 'shiny gold'
+
+      bags[bag].to_a.reduce(false) { |acc, b| acc || contains_shiny_gold_bag?(b, bags) }
     end
 
     def bags_contained_in(bag, bags)

@@ -1,8 +1,8 @@
 module Day10
   class Main
     def initialize
-      adapters = File.read("day10/input.txt").strip.split("\n").map(&:to_i).sort
-      @diffs = [adapters[0]] + (1...adapters.count).map { |i| adapters[i] - adapters[i-1] } + [3]
+      adapters = File.read('day10/input.txt').strip.split("\n").map(&:to_i).sort
+      @diffs = [adapters[0]] + (1...adapters.count).map { |i| adapters[i] - adapters[i - 1] } + [3]
     end
 
     def part1
@@ -15,8 +15,8 @@ module Day10
 
     private
 
-    def tribonacci(n, seed = [0, 1, 1])
-      n <= 1 ? seed.last : tribonacci(n-1, seed.last(2) << seed.sum)
+    def tribonacci(iterations, seed = [0, 1, 1])
+      iterations <= 1 ? seed.last : tribonacci(iterations - 1, seed.last(2) << seed.sum)
     end
   end
 end

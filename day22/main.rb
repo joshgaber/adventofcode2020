@@ -5,9 +5,9 @@ module Day22
     end
 
     def part1
-      players = @players.map &:clone
+      players = @players.map(&:clone)
       until players[0].empty? || players[1].empty?
-        cards = players.map &:shift
+        cards = players.map(&:shift)
         winner = cards.index cards.max
         players[winner] << cards[winner] << cards[1 - winner]
       end
@@ -17,7 +17,7 @@ module Day22
 
     def part2
       @hands = []
-      big_winner = recursive_combat(@players.map &:clone).reject(&:empty?).first
+      big_winner = recursive_combat(@players.map(&:clone)).reject(&:empty?).first
       big_winner.map.with_index { |w, i| w * (big_winner.count - i) }.sum
     end
 
@@ -28,12 +28,12 @@ module Day22
           players[1] = []
         else
           hands << players.to_s
-          cards = players.map &:shift
-          if cards[0] <= players[0].length && cards[1] <= players[1].length
-            winner = recursive_combat(players.map.with_index { |p, i| p.first(cards[i])}).index(&:any?)
-          else
-            winner = cards.index(cards.max)
-          end
+          cards = players.map(&:shift)
+          winner = if cards[0] <= players[0].length && cards[1] <= players[1].length
+                     recursive_combat(players.map.with_index { |p, i| p.first(cards[i]) }).index(&:any?)
+                   else
+                     cards.index(cards.max)
+                   end
           players[winner] << cards[winner] << cards[1 - winner]
         end
       end

@@ -5,16 +5,16 @@ module Day15
     end
 
     def part2
-      "30000000th number: #{process 30000000}"
+      "30000000th number: #{process 30_000_000}"
     end
 
     def process(nth)
-      list = {12 => 0, 20 => 1, 0 => 2, 6 => 3, 1 => 4, 17 => 5, 7 => 6}
+      list = { 12 => 0, 20 => 1, 0 => 2, 6 => 3, 1 => 4, 17 => 5, 7 => 6 }
       last = 0
       (7...nth - 1).each do |i|
-        newLast = (list.has_key?(last) ? i - list[last] : 0)
+        new_last = (list.key?(last) ? i - list[last] : 0)
         list[last] = i
-        last = newLast
+        last = new_last
       end
       last
     end

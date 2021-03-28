@@ -6,6 +6,7 @@ loop do
   print 'Choose day to run (any non-number to exit): '
   day = gets.to_i
   break unless day.between? 1, 25
+
   puts "== DAY #{day} =="
   ref = Object.const_get("Day#{day}")::Main.new
   puts ref.part1

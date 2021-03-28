@@ -1,7 +1,7 @@
 module Day1
   class Main
     def initialize
-      @entries = File.read('./day1/input.txt').strip.split("\n").map &:to_i
+      @entries = File.read('./day1/input.txt').strip.split("\n").map(&:to_i)
     end
 
     def part1
@@ -17,7 +17,7 @@ module Day1
     def combo(count, total = 2020)
       smaller = @entries.filter { |entry| entry < (total / 2) }
       grid = smaller.combination(count - 1).to_a
-      nums = grid.filter { |g| @entries.include?(total - g.sum)}.first
+      nums = grid.filter { |g| @entries.include?(total - g.sum) }.first
       nums << total - nums.sum
 
       nums.reduce :*

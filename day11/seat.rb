@@ -1,5 +1,5 @@
 module Day11
-  AROUND = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
+  AROUND = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]].freeze
 
   class Seat
     attr_reader :value
@@ -14,7 +14,7 @@ module Day11
     end
 
     def check
-      @updated = update @seats.count { |seat| seat.value == '#' }
+      @updated = update(@seats.count { |seat| seat.value == '#' })
     end
 
     def changed?
@@ -31,15 +31,16 @@ module Day11
 
     private
 
-    def adjacent(seats, row, column, v, h)
-      position = [row + v, column + h]
+    def adjacent(seats, row, column, position_v, position_h)
+      position = [row + position_v, column + position_h]
       seat_exists?(seats, *position) && seats.dig(*position).value == 'L' ? position : nil
     end
 
-    def visible(seats, row, column, v, h)
-      position = [row + v, column + h]
+    def visible(seats, row, column, position_v, position_h)
+      position = [row + position_v, column + position_h]
       return nil unless seat_exists? seats, *position
-      seats.dig(*position).value == 'L' ? position : visible(seats, *position, v, h)
+
+      seats.dig(*position).value == 'L' ? position : visible(seats, *position, position_v, position_h)
     end
 
     def seat_exists?(seats, row, column)
@@ -47,8 +48,9 @@ module Day11
     end
 
     def update(occupied)
-      return '#' if @value == 'L' && occupied == 0
+      return '#' if @value == 'L' && occupied.zero?
       return 'L' if @value == '#' && occupied >= @tolerance
+
       @value
     end
   end

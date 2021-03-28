@@ -7,7 +7,7 @@ module Day13
       @offset = offset
     end
 
-    def nextArrival(time)
+    def next_arrival(time)
       route - (time % route)
     end
   end

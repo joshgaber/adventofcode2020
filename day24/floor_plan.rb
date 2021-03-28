@@ -3,6 +3,7 @@ require 'set'
 module Day24
   class FloorPlan
     attr_reader :flipped
+
     def initialize(tiles)
       @flipped = Set[]
       tiles.each do |t|
@@ -15,7 +16,7 @@ module Day24
           when 'e'
             position[0] += 2
           when 'n', 's'
-            position[1] += (t[i] === 's' ? 1 : -1)
+            position[1] += (t[i] == 's' ? 1 : -1)
             i += 1
             case t[i]
             when 'w'
@@ -34,10 +35,11 @@ module Day24
 
     def next_day
       to_flip = []
-      d = @flipped.to_a.transpose.map { |f| [f.min, f.max] }
-      (d[0][0]-1..d[0][1]+1).to_a.each do |x|
-        (d[1][0]-1..d[1][1]+1).to_a.each do |y|
+      d = @flipped.to_a.transpose.map(&:minmax)
+      (d[0][0] - 1..d[0][1] + 1).to_a.each do |x|
+        (d[1][0] - 1..d[1][1] + 1).to_a.each do |y|
           next if x.odd? != y.odd?
+
           to_flip << [x, y] if should_flip?(x, y)
         end
       end
@@ -46,9 +48,9 @@ module Day24
 
     private
 
-    def should_flip?(x, y)
-      neighbors = @neighbors.count { |n| @flipped.include? [n[0] + x, n[1] + y] }
-      if @flipped.include?([x, y])
+    def should_flip?(position_x, position_y)
+      neighbors = @neighbors.count { |n| @flipped.include? [n[0] + position_x, n[1] + position_y] }
+      if @flipped.include?([position_x, position_y])
         [0, 3, 4, 5, 6].include?(neighbors)
       else
         neighbors == 2

@@ -16,8 +16,9 @@ module Day18
     def calculate(values, operands)
       loop do
         i = values.index { |v| operands.include? v.to_s }
-        break if i === nil
-        values[i-1..i+1] = eval values[i-1..i+1].join
+        break if i.nil?
+
+        values[i - 1..i + 1] = eval values[i - 1..i + 1].join
       end
     end
   end

@@ -14,7 +14,7 @@ module Day17
 
     def iterate(times = 1)
       times.times do
-        @state = updateState
+        @state = update_state
         @step += 1
       end
       self
@@ -28,28 +28,29 @@ module Day17
 
     def initial_state(dimension = 2)
       return Array.new(15) { initial_state(dimension + 1) } if dimension < @dimensions
+
       Array.new(@height + 14) { Array.new(@width + 14) { '.' } }
     end
 
-    def updateState(state = initial_state, coords = [])
+    def update_state(state = initial_state, coords = [])
       if coords.length < @dimensions - 2
-        (6 - @step..8 + @step).each { |d| updateState state[d], coords + [d] }
+        (6 - @step..8 + @step).each { |d| update_state state[d], coords + [d] }
       else
         (6 - @step...8 + @height + @step).each do |y|
           (6 - @step...8 + @width + @step).each do |x|
-            state[y][x] = checkAround(coords + [y, x])
+            state[y][x] = check_around(coords + [y, x])
           end
         end
       end
       state
     end
 
-    def checkAround(coords)
+    def check_around(coords)
       case @neighbors.map { |n| @state.dig(*[n, coords].transpose.map(&:sum)) }.count '#'
       when 3
         '#'
       when 2
-        @state.dig *coords
+        @state.dig(*coords)
       else
         '.'
       end

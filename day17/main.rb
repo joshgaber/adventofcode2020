@@ -3,7 +3,7 @@ require_relative 'pocket'
 module Day17
   class Main
     def initialize
-      @initial = File.read('day17/input.txt').strip.split("\n").map &:chars
+      @initial = File.read('day17/input.txt').strip.split("\n").map(&:chars)
     end
 
     def part1

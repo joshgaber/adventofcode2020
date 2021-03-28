@@ -9,7 +9,7 @@
 
 214 - 2 = YX, 1 = XT, 4 = Y
 
-=== OR ===
+== OR ==
 
 000 - _
 001 - TY ^ XT
@@ -21,7 +21,7 @@
 007 T ^ XTY ^ YTX
 
 
-=== Initial rotation ===
+== Initial rotation ==
 
 TR: 0,1; -> 3|4 ==> even? rotate to a^4; odd? rotate by (b & 2) ? 6, 0
 BR: 2,1; -> 0|7 => 4 if

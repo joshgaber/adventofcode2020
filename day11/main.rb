@@ -3,7 +3,7 @@ require_relative 'seat'
 module Day11
   class Main
     def initialize
-      @seats = File.read('day11/input.txt').strip.split("\n").map &:chars
+      @seats = File.read('day11/input.txt').strip.split("\n").map(&:chars)
     end
 
     def part1
@@ -22,9 +22,10 @@ module Day11
 
     def process(seats)
       loop do
-        seats.each &:check
-        return seats.count(&:occupied?) if seats.count(&:changed?) == 0
-        seats.each &:commit
+        seats.each(&:check)
+        return seats.count(&:occupied?) if seats.count(&:changed?).zero?
+
+        seats.each(&:commit)
       end
     end
   end

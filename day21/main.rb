@@ -9,7 +9,7 @@ module Day21
         }
       end
       @ingredients = @contents.map { |c| c[:ingredients] }.flatten
-      @allergens = @contents.map { |c| c[:allergens] }.flatten.uniq.to_h { |c| [c, []]}
+      @allergens = @contents.map { |c| c[:allergens] }.flatten.uniq.to_h { |c| [c, []] }
       @contents.each { |c| c[:allergens].each { |a| @allergens[a] << c[:ingredients] } }
       @maybes = @allergens.transform_values { |a| a.reduce(:&) }
     end
@@ -21,7 +21,7 @@ module Day21
     def part2
       maybes = @maybes.clone
       definitelies = {}
-      until definitelies.size === maybes.size do
+      until definitelies.size == maybes.size
         maybes.each do |k, v|
           if v.count == 1
             definitelies[k] = v.first
@@ -29,7 +29,7 @@ module Day21
           end
         end
       end
-      "List of allergens: #{definitelies.values.sort { |a,b| definitelies.key(a) <=> definitelies.key(b) }.join ","}"
+      "List of allergens: #{definitelies.values.sort { |a, b| definitelies.key(a) <=> definitelies.key(b) }.join ','}"
     end
   end
 end
