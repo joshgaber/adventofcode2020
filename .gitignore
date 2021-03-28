@@ -1,0 +1,5 @@
+.Gemfile
+.ruby-version
+debug.log
+pkg/
+/tmp/
